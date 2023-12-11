@@ -146,7 +146,7 @@ const Signup = () => {
 
             <Box sx={{ my: 2 }}>
               <ReCAPTCHA
-                sitekey={`process.env.REACT_APP_GOOGLE_CAPTCHA`}
+                sitekey={`6LfrxiwpAAAAABSSCW--SCbzxTeRdAe_LnL92W6m`}
                 onChange={onChange}
               />
             </Box>
