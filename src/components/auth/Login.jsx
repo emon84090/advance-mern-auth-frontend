@@ -104,7 +104,7 @@ const Login = () => {
 
             <Box sx={{ my: 2 }}>
               <ReCAPTCHA
-                sitekey={`REACT_APP_GOOGLE_CAPTCHA`}
+                sitekey={`process.env.REACT_APP_GOOGLE_CAPTCHA`}
                 onChange={onChange}
               />
             </Box>
