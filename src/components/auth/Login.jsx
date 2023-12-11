@@ -31,11 +31,11 @@ const Login = () => {
       localStorage.setItem("auth_token", data.token);
       setUser(data?.data);
       setSpinner(false);
-
+      setCaptcha(false);
       navigate("/", { replace: true });
     } catch (err) {
       setSpinner(false);
-
+      setCaptcha(false);
       if (err?.response.status === 423) {
         return toast.error(
           `Your Acount Locked For ${moment(err?.response?.data?.time).format(
@@ -104,7 +104,7 @@ const Login = () => {
 
             <Box sx={{ my: 2 }}>
               <ReCAPTCHA
-                sitekey={`process.env.REACT_APP_GOOGLE_CAPTCHA`}
+                sitekey={`${import.meta.env.VITE_API_GCAPTCHA}`}
                 onChange={onChange}
               />
             </Box>
@@ -117,7 +117,7 @@ const Login = () => {
             )}
 
             <StyleButton
-              disabled={spinner}
+              disabled={spinner || !captcha}
               type="submit"
               startIcon={<Person></Person>}
               fullWidth

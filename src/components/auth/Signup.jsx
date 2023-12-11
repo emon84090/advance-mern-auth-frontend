@@ -42,8 +42,10 @@ const Signup = () => {
       setSpinner(false);
       toast.success(data?.message);
       navigate("/login", { replace: true });
+      setCaptcha(false);
     } catch (err) {
       setSpinner(false);
+      setCaptcha(false);
       if (err?.response?.data?.message) {
         toast.error(err?.response?.data?.message);
       } else if (err?.response?.data?.error) {
@@ -146,7 +148,7 @@ const Signup = () => {
 
             <Box sx={{ my: 2 }}>
               <ReCAPTCHA
-                sitekey={`6LfrxiwpAAAAABSSCW--SCbzxTeRdAe_LnL92W6m`}
+                sitekey={`${import.meta.env.VITE_API_GCAPTCHA}`}
                 onChange={onChange}
               />
             </Box>
@@ -156,7 +158,7 @@ const Signup = () => {
               label="Terms And Condition"
             />
             <StyleButton
-              disabled={spinner}
+              disabled={spinner || !captcha}
               type="submit"
               startIcon={<Person></Person>}
               fullWidth
