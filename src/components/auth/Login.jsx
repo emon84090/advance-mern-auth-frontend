@@ -17,6 +17,14 @@ const Login = () => {
   const { setUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  let captcharef;
+
+  const setCaptcharef = (ref) => {
+    if (ref) {
+      return (captcharef = ref);
+    }
+  };
+
   const loginFun = async (e) => {
     e.preventDefault();
     setSpinner(true);
@@ -32,10 +40,12 @@ const Login = () => {
       setUser(data?.data);
       setSpinner(false);
       setCaptcha(false);
+      captcharef.reset();
       navigate("/", { replace: true });
     } catch (err) {
       setSpinner(false);
       setCaptcha(false);
+      captcharef.reset();
       if (err?.response.status === 423) {
         return toast.error(
           `Your Acount Locked For ${moment(err?.response?.data?.time).format(
@@ -104,6 +114,7 @@ const Login = () => {
 
             <Box sx={{ my: 2 }}>
               <ReCAPTCHA
+                ref={(r) => setCaptcharef(r)}
                 sitekey={`${import.meta.env.VITE_API_GCAPTCHA}`}
                 onChange={onChange}
               />
